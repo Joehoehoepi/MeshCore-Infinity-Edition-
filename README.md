@@ -1,128 +1,70 @@
-## About MeshCore
+# MeshCore: Infinity Edition 🚀
 
-MeshCore is a lightweight, portable C++ library that enables multi-hop packet routing for embedded projects using LoRa and other packet radios. It is designed for developers who want to create resilient, decentralized communication networks that work without the internet.
+Welkom bij de **MeshCore: Infinity Edition**. Deze repository is een onafhankelijke doorontwikkeling van de originele MeshCore-firmware, specifiek gebouwd voor snellere innovatie, bredere hardware-ondersteuning en superieure netwerkstabiliteit op ESP32-architecturen.
 
-## 🔍 What is MeshCore?
+Waar de originele ontwikkeling stagneert, pusht de Infinity Edition de grenzen van wat mogelijk is met dynamische netwerk-switching en custom hardware-telemetrie.
 
-MeshCore now supports a range of LoRa devices, allowing for easy flashing without the need to compile firmware manually. Users can flash a pre-built binary using tools like Adafruit ESPTool and interact with the network through a serial console.
-MeshCore provides the ability to create wireless mesh networks, similar to Meshtastic and Reticulum but with a focus on lightweight multi-hop packet routing for embedded projects. Unlike Meshtastic, which is tailored for casual LoRa communication, or Reticulum, which offers advanced networking, MeshCore balances simplicity with scalability, making it ideal for custom embedded solutions, where devices (nodes) can communicate over long distances by relaying messages through intermediate nodes. This is especially useful in off-grid, emergency, or tactical situations where traditional communication infrastructure is unavailable.
+## ✨ Waarom de Infinity Edition?
 
-## ⚡ Key Features
+Deze versie introduceert de **SmartSwitch Engine**: een robuuste failover-logica waarmee ESP32-nodes naadloos, dynamisch en zonder herstart kunnen schakelen tussen Wi-Fi en Bluetooth (BLE) interfaces op basis van bereikbaarheid. Daarnaast is de C++ architectuur opgeschoond en zijn er specifieke partitie- en geheugenoptimalisaties doorgevoerd voor moderne borden.
 
-* Multi-Hop Packet Routing
-  * Devices can forward messages across multiple nodes, extending range beyond a single radio's reach.
-  * Supports up to a configurable number of hops to balance network efficiency and prevent excessive traffic.
-  * Nodes use fixed roles where "Companion" nodes are not repeating messages at all to prevent adverse routing paths from being used.
-* Supports LoRa Radios – Works with Heltec, RAK Wireless, and other LoRa-based hardware.
-* Decentralized & Resilient – No central server or internet required; the network is self-healing.
-* Low Power Consumption – Ideal for battery-powered or solar-powered devices.
-* Simple to Deploy – Pre-built example applications make it easy to get started.
+## 🛠️ Ondersteunde Hardware
 
-## 🎯 What Can You Use MeshCore For?
+De Infinity Edition heeft geteste en geoptimaliseerde board-definities voor een brede vloot aan hardware:
 
-* Off-Grid Communication: Stay connected even in remote areas.
-* Emergency Response & Disaster Recovery: Set up instant networks where infrastructure is down.
-* Outdoor Activities: Hiking, camping, and adventure racing communication.
-* Tactical & Security Applications: Military, law enforcement, and private security use cases.
-* IoT & Sensor Networks: Collect data from remote sensors and relay it back to a central location.
+* **Heltec LoRa32 V2**
+* **Heltec LoRa32 V3**
+* **Heltec V4 OLED**
+* **Heltec V4 TFT**
+* **LilyGo T3-S3** (Inclusief de `huge_app.csv` partitie-layout voor volledige benutting van 4MB Flash, helaas geen ota meer door gebrek aan ruimte).
+* **Seeed Studio XIAO ESP32S3** (Met unieke hardware-implementaties voor batterij-uitlezing).
 
-## 🚀 How to Get Started
+## 🚀 Kernfunctionaliteiten
 
-- Watch the [MeshCore QuickStart Playlist](https://www.youtube.com/watch?v=iaFltojJrAc&list=PLshzThxhw4O4WU_iZo3NmNZOv6KMrUuF9) by The Comms Channel
-- Watch the [MeshCore Technical Presentation](https://www.youtube.com/watch?v=OwmkVkZQTf4) by Liam Cottle.
-- Read through our [Frequently Asked Questions](./docs/faq.md) and [Documentation](https://docs.meshcore.io).
-- Flash the MeshCore firmware on a supported device.
-- Connect with a supported client.
+### 1. SmartSwitch: Geautomatiseerde Failover & Recovery
 
-For developers:
+Nodes zitten niet meer vast aan één interface. De interne statemachine (`MeshMode`) beheert de verbinding proactief:
 
-- Install [PlatformIO](https://docs.platformio.org) in [Visual Studio Code](https://code.visualstudio.com).
-- Clone and open the MeshCore repository in Visual Studio Code.
-- See the example applications you can modify and run:
-  - [Companion Radio](./examples/companion_radio) - For use with an external chat app, over BLE, USB or Wi-Fi.
-  - [KISS Modem](./examples/kiss_modem) - Serial KISS protocol bridge for host applications. ([protocol docs](./docs/kiss_modem_protocol.md))
-  - [Simple Repeater](./examples/simple_repeater) - Extends network coverage by relaying messages.
-  - [Simple Room Server](./examples/simple_room_server) - A simple BBS server for shared Posts.
-  - [Simple Secure Chat](./examples/simple_secure_chat) - Secure terminal based text communication between devices.
-  - [Simple Sensor](./examples/simple_sensor) - Remote sensor node with telemetry and alerting.
+* **Boot:** Start in `MODE_WIFI_CONNECTING` (max 15s timeout).
+* **Failover (`MODE_BLE_ACTIVE`):** Als Wi-Fi wegvalt, wordt de Wi-Fi radio volledig uitgeschakeld (`WiFi.mode(WIFI_OFF)`) om stroom te besparen, waarna de BLE-interface naadloos de communicatie overneemt.
+* **Auto-Recovery:** Tijdens BLE-modus voert het systeem elke 30 seconden een onzichtbare Wi-Fi achtergrondscan (5s) uit. Zodra het thuisnetwerk weer in beeld is, wordt BLE uitgeschakeld en Wi-Fi automatisch hersteld.
 
-The Simple Secure Chat example can be interacted with through the Serial Monitor in Visual Studio Code, or with a Serial USB Terminal on Android.
+### 2. Geavanceerde Hardware Integratie
 
-## ⚡️ MeshCore Flasher
+* **XIAO S3 Batterij Telemetrie:** De standaard XIAO S3 mist interne batterijmeting. In deze firmware is een custom `XiaoS3WIOBoard` klasse gebouwd die gebruik maakt van een fysieke 1M/1M spanningsdeler op `PIN_VBAT` (GPIO 1). De firmware leest de 12-bit ADC uit en berekent het exacte voltage.
+* **Bootlock Beveiliging:** Ingebouwde `PWRMGT_VOLTAGE_BOOTLOCK` (3.3V) voorkomt schadelijke bootloops bij bijna lege batterijen.
+* **Hardware Fixes:** Actieve power-management fixes (`board.setInhibitSleep(true)`) stabiliseren de stroomvoorziening tijdens het in- en uitschakelen van radio's (cruciaal voor uitbreidingsborden).
 
-We have prebuilt firmware ready to flash on supported devices.
+### 3. Visuele Status Feedback
 
-- Launch https://meshcore.io/flasher
-- Select a supported device
-- Flash one of the firmware types:
-  - Companion, Repeater or Room Server
-- Once flashing is complete, you can connect with one of the MeshCore clients below.
+Specifieke LED-patronen tonen direct de status van de node (inclusief auto-detectie voor reverse-polarity LEDs zoals op de XIAO S3 waar `LOW = AAN`):
 
-## 📱 MeshCore Clients
+* 🔴 **Snel knipperen (100ms):** Zoeken naar Wi-Fi.
+* 🔴 **Continu AAN:** Stabiel verbonden met Wi-Fi.
+* 🔴 **Langzaam knipperen (500ms):** Wi-Fi onbereikbaar, draait op Bluetooth-modus.
 
-**Companion Firmware**
+### 4. Architectuur Optimalisaties
 
-The companion firmware can be connected to via BLE, USB or Wi-Fi depending on the firmware type you flashed.
+* **Geheugen:** Directe koppeling van `SPIFFS` aan de `DataStore` voor ESP32-omgevingen.
+* **Compiler Compatibiliteit:** Gelijktijdige ondersteuning voor `SerialWifiInterface` en `SerialBLEInterface` met hard-mapped interfaces om de originele `serial_interface` calls in de core niet te breken.
 
-- Web: https://app.meshcore.nz
-- Android: https://play.google.com/store/apps/details?id=com.liamcottle.meshcore.android
-- iOS: https://apps.apple.com/us/app/meshcore/id6742354151?platform=iphone
-- NodeJS: https://github.com/liamcottle/meshcore.js
-- Python: https://github.com/fdlamotte/meshcore-cli
+## 💻 Installatie & Build Instructies
 
-**Repeater and Room Server Firmware**
+Volg deze stappen om de firmware te compileren en naar je nodes te uploaden:
 
-The repeater and room server firmware can be set up via USB in the web config tool.
+1. **Kloon de repository:** Download of kloon deze repository naar je lokale machine.
+2. **Open in PlatformIO:** Open de gedownloade projectmap in VS Code met de PlatformIO-extensie geïnstalleerd.
+3. **Configureer je Wi-Fi credentials:** * Open het `platformio.ini` bestand in de root van het project.
+* Navigeer naar de specifieke omgeving die je wilt gebruiken (bijvoorbeeld `[env:Xiao_S3_WIO_companion_radio_wifi]` voor de Wi-Fi en Companion App functionaliteit).
+* Pas de volgende `build_flags` aan met de gegevens van jouw eigen thuisnetwerk:
+```ini
+-D WIFI_SSID='"JOUW_SSID_HIER"'
+-D WIFI_PWD='"JOUW_WACHTWOORD_HIER"'
 
-- https://config.meshcore.io
-
-They can also be managed via LoRa in the mobile app by using the Remote Management feature.
-
-## 🛠 Hardware Compatibility
-
-MeshCore is designed for devices listed in the [MeshCore Flasher](https://meshcore.io/flasher)
-
-## 📜 License
-
-MeshCore is open-source software released under the MIT License. You are free to use, modify, and distribute it for personal and commercial projects.
-
-## Contributing
-
-Please submit PR's using 'dev' as the base branch!
-For minor changes just submit your PR and we'll try to review it, but for anything more 'impactful' please open an Issue first and start a discussion. It is better to sound out what it is you want to achieve first, and try to come to a consensus on what the best approach is, especially when it impacts the structure or architecture of this codebase.
-
-Here are some general principles you should try to adhere to:
-* Keep it simple. Please, don't think like a high-level lang programmer. Think embedded, and keep code concise, without any unnecessary layers.
-* No dynamic memory allocation, except during setup/begin functions.
-* Use the same brace and indenting style that's in the core source modules. (A .clang-format is probably going to be added soon, but please do NOT retroactively re-format existing code. This just creates unnecessary diffs that make finding problems harder)
-
-Help us prioritize! Please react with thumbs-up to issues/PRs you care about most. We look at reaction counts when planning work.
-
-### Running unit tests
-
-To run unit tests, run the following command:
-
-```bash
-pio test --environment native --verbose
 ```
-
-## Road-Map / To-Do
-
-There are a number of fairly major features in the pipeline, with no particular time-frames attached yet. In very rough chronological order:
-- [X] Companion radio: UI redesign
-- [X] Repeater + Room Server: add ACL's (like Sensor Node has)
-- [X] Standardise Bridge mode for repeaters
-- [ ] Repeater/Bridge: Standardise the Transport Codes for zoning/filtering
-- [X] Core + Repeater: enhanced zero-hop neighbour discovery
-- [ ] Core: round-trip manual path support
-- [ ] Companion + Apps: support for multiple sub-meshes (and 'off-grid' client repeat mode)
-- [ ] Core + Apps: support for LZW message compression
-- [ ] Core: dynamic CR (Coding Rate) for weak vs strong hops
-- [ ] Core: new framework for hosting multiple virtual nodes on one physical device
-- [ ] V2 protocol spec: discussion and consensus around V2 packet protocol, including path hashes, new encryption specs, etc
-
-## 📞 Get Support
-
-- Report bugs and request features on the [GitHub Issues](https://github.com/ripplebiz/MeshCore/issues) page.
-- Find additional guides and components on [my site](https://buymeacoffee.com/ripplebiz).
-- Join [MeshCore Discord](https://meshcore.gg) to chat with the developers and get help from the community.
+4. **Kies je functionaliteit:** * Als je de node wilt koppelen met de **Companion App**, kies dan een van de `companion_radio` omgevingen (zoals BLE of Wi-Fi). Deze versies activeren de juiste UI-taken en interfaces om naadloos met de app te communiceren.
+5. **Clean, Build & Upload:** Maak een backup van je private key voor je de clean uitvoert zodat je dezelde Meshcore identiteit kunt behouden indien je dit wenst.
+* Klik in de blauwe balk van PlatformIO op het **Prullenbak-icoon** (Clean) om eventuele oude builds te wissen.
+* Klik op het **Vinkje** (Build) om de firmware te compileren.
+* Klik op het **Pijltje naar rechts** (Upload) om de firmware naar je aangesloten board te flashen.
+Zodra de upload is voltooid, start de node op, zoekt hij automatisch naar het hardcoded Wi-Fi netwerk en activeert hij de SmartSwitch engine. Alles is direct klaar voor gebruik!
