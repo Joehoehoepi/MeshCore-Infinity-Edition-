@@ -75,7 +75,8 @@ De Infinity Edition maakt een einde aan het hardcoden van netwerkgegevens in de 
 
 1. **Allereerste opstart:** Bij de allereerste boot blijft de node (als deze een scherm heeft) op **"Loading..."** staan. Dit is normaal! De node zoekt op de achtergrond naar opgeslagen inloggegevens.
 2. **Verbind met het Access Point:** Omdat er geen gegevens zijn, zendt de node zijn eigen Wi-Fi netwerk uit. Zoek op je telefoon of laptop naar het netwerk:
-<img width="300" alt="image" src="https://github.com/user-attachments/assets/956b47f4-48b4-4f91-abf9-e2163c27c0df" />
+<img width="300" alt="image" src="https://github.com/user-attachments/assets/a0d1e02a-0f66-467f-b726-3b15e9299479" />
+
 * **SSID:** `MeshCore-Configurator`
 * **Wachtwoord:** (Geen wachtwoord)
 3. **Gegevens invullen:** Open je browser en ga naar `http://192.168.4.1` (of de Captive Portal opent automatisch). Je krijgt nu het zwart/neon-groene **Infinity Configurator** scherm te zien. Vul hier je SSID en Wachtwoord in en druk op opslaan.
