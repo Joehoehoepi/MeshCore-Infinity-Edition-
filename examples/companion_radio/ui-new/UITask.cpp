@@ -217,12 +217,17 @@ public:
       sprintf(tmp, "MSG: %d", _task->getMsgCount());
       display.drawTextCentered(display.width() / 2, 20, tmp);
 
-      #ifdef WIFI_SSID
+#ifdef WIFI_SSID
         IPAddress ip = WiFi.localIP();
-        snprintf(tmp, sizeof(tmp), "IP: %d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
-        display.setTextSize(1);
-        display.drawTextCentered(display.width() / 2, 54, tmp);
+        // Infinity fix: Print alleen het IP als er daadwerkelijk een verbinding is
+        if (ip[0] != 0) { 
+          snprintf(tmp, sizeof(tmp), "IP: %d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
+          display.setTextSize(1); // Size 1 is ca. 8 pixels hoog
+          // Y-as naar 56 gezet, zodat hij strak onderaan staat
+          display.drawTextCentered(display.width() / 2, 56, tmp); 
+        }
       #endif
+
       if (_task->hasConnection()) {
         display.setColor(DisplayDriver::GREEN);
         display.setTextSize(1);
@@ -230,9 +235,10 @@ public:
 
       } else if (the_mesh.getBLEPin() != 0) { // BT pin
         display.setColor(DisplayDriver::RED);
-        display.setTextSize(2);
+        display.setTextSize(2); // Size 2 is ca. 16 pixels hoog
         sprintf(tmp, "Pin:%d", the_mesh.getBLEPin());
-        display.drawTextCentered(display.width() / 2, 43, tmp);
+        // Y-as naar 38 gezet, dit geeft ruimte boven het IP-adres
+        display.drawTextCentered(display.width() / 2, 38, tmp); 
       }
     } else if (_page == HomePage::RECENT) {
       the_mesh.getRecentlyHeard(recent, UI_RECENT_LIST_SIZE);
