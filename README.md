@@ -1,4 +1,4 @@
-# MeshCore: Infinity Edition 🚀
+# MeshCore Companion Infinity Edition 🚀
 
 Welkom bij de **MeshCore: Infinity Edition**. Deze repository is een onafhankelijke doorontwikkeling van de originele MeshCore-firmware, specifiek gebouwd voor snellere innovatie, bredere hardware-ondersteuning en superieure netwerkstabiliteit op ESP32-architecturen.
 
