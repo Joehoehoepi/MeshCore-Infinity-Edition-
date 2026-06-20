@@ -48,7 +48,7 @@ Specifieke LED-patronen tonen direct de status van de node (inclusief auto-detec
 * **Geheugen:** Directe koppeling van `SPIFFS` aan de `DataStore` voor ESP32-omgevingen.
 * **Compiler Compatibiliteit:** Gelijktijdige ondersteuning voor `SerialWifiInterface` en `SerialBLEInterface` met hard-mapped interfaces om de originele `serial_interface` calls in de core niet te breken.
 
-## 💻 Installatie & Build Instructies
+## 💻 Installatie & Build Instructies met Hardcoding
 
 Volg deze stappen om de firmware te compileren en naar je nodes te uploaden:
 
