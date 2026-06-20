@@ -63,7 +63,7 @@ Volg deze stappen om de firmware te compileren en naar je nodes te uploaden:
 
 ```
 4. **Kies je functionaliteit:** * Als je de node wilt koppelen met de **Companion App**, kies dan een van de `companion_radio` omgevingen (zoals BLE of Wi-Fi). Deze versies activeren de juiste UI-taken en interfaces om naadloos met de app te communiceren.
-5. **Clean, Build & Upload:** Maak een backup van je private key voor je de clean uitvoert zodat je dezelde Meshcore identiteit kunt behouden indien je dit wenst.
+5. **Clean, Build & Upload (CLEAN IS ALLEEN NODIG VOOR DE LILYGO T3S3!):** Maak een backup van je private key voor je de clean uitvoert zodat je dezelde Meshcore identiteit kunt behouden indien je dit wenst.
 * Klik in de blauwe balk van PlatformIO op het **Prullenbak-icoon** (Clean) om eventuele oude builds te wissen.
 * Klik op het **Vinkje** (Build) om de firmware te compileren.
 * Klik op het **Pijltje naar rechts** (Upload) om de firmware naar je aangesloten board te flashen.
