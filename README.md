@@ -68,3 +68,51 @@ Volg deze stappen om de firmware te compileren en naar je nodes te uploaden:
 * Klik op het **Vinkje** (Build) om de firmware te compileren.
 * Klik op het **Pijltje naar rechts** (Upload) om de firmware naar je aangesloten board te flashen.
 Zodra de upload is voltooid, start de node op, zoekt hij automatisch naar het hardcoded Wi-Fi netwerk en activeert hij de SmartSwitch engine. Alles is direct klaar voor gebruik!
+
+### 🌐 Captive Portal: Netwerkconfiguratie zonder Hardcoden via Acces Point
+
+De Infinity Edition maakt een einde aan het hardcoden van netwerkgegevens in de broncode. Als de node geen bekende Wi-Fi-netwerken in zijn geheugen (`Preferences`) heeft staan (of als het de allereerste keer is dat de firmware start), treedt de **Captive Portal** in werking.
+
+1. **Allereerste opstart:** Bij de allereerste boot blijft de node (als deze een scherm heeft) op **"Loading..."** staan. Dit is normaal! De node zoekt op de achtergrond naar opgeslagen inloggegevens.
+2. **Verbind met het Access Point:** Omdat er geen gegevens zijn, zendt de node zijn eigen Wi-Fi netwerk uit. Zoek op je telefoon of laptop naar het netwerk:
+* **SSID:** `MeshCore-Configurator`
+* **Wachtwoord:** (Geen wachtwoord)
+3. **Gegevens invullen:** Open je browser en ga naar `http://192.168.4.1` (of de Captive Portal opent automatisch). Je krijgt nu het zwart/neon-groene **Infinity Configurator** scherm te zien. Vul hier je SSID en Wachtwoord in en druk op opslaan.
+4. **Reboot & Verbinding:** De node herstart zichzelf en zal nu direct verbinden met je netwerk en overschakelen naar de reguliere MeshCore- en Bluetooth-logica.
+
+---
+
+## ⚡ Firmware Flashen (Twee methodes)
+
+Je kunt de Infinity Edition op twee manieren flashen: via een gebruiksvriendelijke Web Flasher of handmatig via Visual Studio Code (PlatformIO).
+
+### Methode 1: Snel flashen via de MeshCore Web Flasher (Aangeraden)
+
+Je kunt een gecompileerde `firmware.bin` direct vanuit je browser flashen met de officiële flasher.
+
+1. Zorg ervoor dat je de juiste `.bin` file voor jouw specifieke board hebt gedownload.
+2. **Bootloader Modus:** Zet je node eerst fysiek in de 'Boot' (Download) modus. Voor veel ESP32-S3 borden (zoals de XIAO S3 of LilyGo) doe je dit zo:
+* Houd de **BOOT**-knop ingedrukt.
+* Druk kort op de **RESET**-knop.
+* Laat de **BOOT**-knop los. (Het scherm blijft nu zwart).
+3. Ga naar [https://flasher.meshcore.io/](https://flasher.meshcore.io/).
+4. Kies in de interface voor **Custom Firmware** en selecteer jouw `firmware.bin` bestand.
+5. Klik op Flash en wacht tot het proces voltooid is.
+
+⚠️ **Belangrijk voor de LilyGo T3-S3:** Voordat je de nieuwe firmware naar een LilyGo T3-S3 flasht, **moet** je eerst een "Erase Flash" uitvoeren om geheugencorruptie (vooral in de partitietabellen) te voorkomen.
+
+* **Let op:** Een Erase Flash wist ook je Node Identiteit! Maak vooraf een back-up van je `private key` als je je huidige identiteit in het mesh-netwerk wilt behouden.
+
+### Methode 2: Geavanceerd flashen via Visual Studio Code (PlatformIO)
+
+Voor ontwikkelaars of gebruikers die de broncode willen inzien of wijzigen.
+
+1. **Kloon de repository:** Download of kloon deze repository naar je lokale machine. Zorg voor een **kort bestandspad** (bijv. `C:\Projects\MeshCore`) om compiler-fouten door de Windows pad-limiet te voorkomen.
+2. **Open in PlatformIO:** Open de projectmap in VS Code. PlatformIO zal automatisch beginnen met het downloaden van de benodigde libraries.
+3. **Selecteer je Board:** Klik onderin de blauwe balk op het geselecteerde `env` (bijv. `[env:LilyGo_T3S3...]`) en kies de juiste hardware omgeving (Wi-Fi of BLE Companion).
+4. **Clean (Alleen LilyGo T3-S3):** Voor de LilyGo: voer altijd eerst de taak `Erase Flash` uit via de PlatformIO navigatiebalk aan de linkerkant (Platform > Erase Flash). *Vergeet je private key back-up niet!*
+5. **Bouwen & Flashen:** * Klik op het **Vinkje** (Build) om te controleren of de firmware compileert.
+* Zet de node in Bootloader-modus (zie Methode 1).
+* Klik op het **Pijltje naar rechts** (Upload) om de code naar je board te flashen. Zodra de upload start, kun je de node resetten of laten opstarten.
+
+*(Zodra de flash is afgerond, wacht je tot het scherm op "Loading..." blijft staan en verbind je met de acces point `MeshCore-Configurator` Wi-Fi om de installatie af te ronden!)*
