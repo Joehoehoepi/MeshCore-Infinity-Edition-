@@ -14,7 +14,7 @@ De Infinity Edition heeft geteste en geoptimaliseerde board-definities voor een 
 
 * **Heltec LoRa32 V2**
 * **Heltec LoRa32 V3**
-* **Heltec V4**
+* **Heltec V4 OLED**
 * **Heltec V4 TFT**
 * **LilyGo T3-S3** (Inclusief de `huge_app.csv` partitie-layout voor volledige benutting van 4MB Flash, helaas geen ota meer door gebrek aan ruimte).
 * **Seeed Studio XIAO ESP32S3** (Met unieke hardware-implementaties voor batterij-uitlezing).
