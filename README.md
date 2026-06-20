@@ -85,10 +85,11 @@ De Infinity Edition maakt een einde aan het hardcoden van netwerkgegevens in de 
 ## ⚡ Firmware Flashen (Twee methodes)
 
 Je kunt de Infinity Edition op twee manieren flashen: via een gebruiksvriendelijke Web Flasher of handmatig via Visual Studio Code (PlatformIO).
+Je kunt de gecompileerde firmware met captive portal en acces point vinden in de map `compiled firmware`.
 
 ### Methode 1: Snel flashen via de MeshCore Web Flasher (Aangeraden)
 
-Je kunt een gecompileerde `firmware.bin` direct vanuit je browser flashen met de officiële flasher.
+Je kunt een gecompileerde `.bin` file bestand direct vanuit je browser flashen met de officiële flasher.
 
 1. Zorg ervoor dat je de juiste `.bin` file voor jouw specifieke board hebt gedownload.
 2. **Bootloader Modus:** Zet je node eerst fysiek in de 'Boot' (Download) modus. Voor veel ESP32-S3 borden (zoals de XIAO S3 of LilyGo) doe je dit zo:
