@@ -1,0 +1,53 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/include",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest/googlemock",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest/googlemock/include",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest/googletest",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest/googletest/include",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/src",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/test/mocks",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/lib/ed25519",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/lib/nrf52/include",
+                "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/lib/nrf52",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/include",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest/googlemock",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest/googlemock/include",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest/googletest",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/.pio/libdeps/native/googletest/googletest/include",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/src",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/test/mocks",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/lib/ed25519",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/lib/nrf52/include",
+                    "C:/Users/Warmoes/Downloads/MeshCore-companion-v1.16.0/MeshCore-companion-v1.16.0/lib/nrf52",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60119",
+                ""
+            ],
+            "cppStandard": "c++17",
+            "compilerPath": "gcc",
+            "compilerArgs": [
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
