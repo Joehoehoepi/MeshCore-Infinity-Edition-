@@ -119,3 +119,20 @@ Voor ontwikkelaars of gebruikers die de broncode willen inzien of wijzigen.
 * Klik op het **Pijltje naar rechts** (Upload) om de code naar je board te flashen. Zodra de upload start, kun je de node resetten of laten opstarten.
 
 *(Zodra de flash is afgerond, wacht je tot het scherm op "Loading..." blijft staan en verbind je met de acces point `MeshCore-Configurator` Wi-Fi om de installatie af te ronden!)*
+
+## 📱 Verbinden met de Companion App (via Wi-Fi)
+
+Zodra je node succesvol is verbonden met je thuisnetwerk via de Configurator, kun je de MeshCore app eenvoudig via Wi-Fi (TCP) koppelen:
+
+1. **Lees het IP-adres af:** Kijk op het beeldschermpje van je geconfigureerde node. Hier zie je onderaan een lokaal IP-adres staan (bijvoorbeeld `192.168.2.54`).
+<img width="800"  alt="image" src="https://github.com/user-attachments/assets/5690a510-a85f-4de6-9796-14292de956fa" />
+
+2. **Kies de Wi-Fi optie:** Open de MeshCore app en selecteer in het verbindingsscherm onderin de optie **WIFI**.
+3. **Vul de netwerkgegevens in:**
+* **IP-adres:** Neem het IP-adres over dat op het scherm van je node staat.
+* **Poort:** Vul hier **`5000`** in.
+<img width="800" alt="Schermafbeelding 2026-06-21 083042" src="https://github.com/user-attachments/assets/434edf9b-947a-401d-a3aa-07acaa190bd2" />
+
+4. **Verbinden:** Druk op de grote knop **Verbinden**.
+
+Je app is nu via je lokale netwerk gekoppeld aan de node en klaar voor gebruik!
