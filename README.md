@@ -79,7 +79,7 @@ De Infinity Edition maakt een einde aan het hardcoden van netwerkgegevens in de 
 * **SSID:** `MeshCore-Configurator`
 * **Wachtwoord:** (Geen wachtwoord)
 
-3. **Gegevens invullen:** Open je browser en ga naar `http://192.168.4.1` (of de Captive Portal opent automatisch). Je krijgt nu het zwart/neon-groene **Infinity Configurator** scherm te zien. Vul hier je SSID en Wachtwoord in en druk op opslaan.
+3. **Gegevens invullen:** Open je browser en ga naar `http://192.168.4.1` (of de Captive Portal opent automatisch). Je krijgt nu het zwart/neon-groene **Meshcore WiFi Configurator** scherm te zien. Vul hier je SSID en Wachtwoord in en druk op opslaan.
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/7869b555-f025-46ff-9e08-977977f5df4c" />
 
 4. **Reboot & Verbinding:** De node herstart zichzelf en zal nu direct verbinden met je netwerk en overschakelen naar de reguliere MeshCore- en Bluetooth-logica.
