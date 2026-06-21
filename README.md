@@ -75,7 +75,7 @@ De Infinity Edition maakt een einde aan het hardcoden van netwerkgegevens in de 
 
 1. **Allereerste opstart:** Bij de allereerste boot blijft de node (als deze een scherm heeft) op **"Loading..."** staan. Dit is normaal! De node zoekt op de achtergrond naar opgeslagen inloggegevens.
 2. **Verbind met het Access Point:** Omdat er geen gegevens zijn, zendt de node zijn eigen Wi-Fi netwerk uit. Zoek op je telefoon of laptop naar het netwerk:
-<img width="800" alt="image" src="https://github.com/user-attachments/assets/7869b555-f025-46ff-9e08-977977f5df4c" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/7869b555-f025-46ff-9e08-977977f5df4c" />
 
 * **SSID:** `MeshCore-Configurator`
 * **Wachtwoord:** (Geen wachtwoord)
