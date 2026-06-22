@@ -102,9 +102,9 @@ Je kunt een gecompileerde `.bin` file bestand direct vanuit je browser flashen m
 4. Kies in de interface voor **Custom Firmware** en selecteer jouw `firmware.bin` bestand.
 5. Klik op Flash en wacht tot het proces voltooid is.
 
-⚠️ **Belangrijk voor de LilyGo T3-S3:** Voordat je de nieuwe firmware naar een LilyGo T3-S3 flasht, **moet** je eerst een "Erase Flash" uitvoeren om geheugencorruptie (vooral in de partitietabellen) te voorkomen.
+⚠️ **Belangrijk voor de LilyGo T3-S3:** Voordat je de nieuwe firmware naar een LilyGo T3-S3 flasht, **moet** je eerst een "Erase Flash" uitvoeren om geheugencorruptie (vooral in de partitietabellen) te voorkomen. Flash je Lilygo T3S3 daarna met de `firmware-merged.bin`.
 
-* **Let op:** Een Erase Flash wist ook je Node Identiteit! Maak vooraf een back-up van je `private key` als je je huidige identiteit in het mesh-netwerk wilt behouden.
+* **Let op:** Een Erase Flash wist ook je Node Identiteit! Maak vooraf een back-up van je `private key` als je je huidige identiteit in het mesh-netwerk wilt behouden. lash je companion daarna altijd met de `firmware-merged.bin`.
 
 ### Methode 2: Geavanceerd flashen via Visual Studio Code (PlatformIO)
 
