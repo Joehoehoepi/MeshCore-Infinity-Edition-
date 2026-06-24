@@ -6,6 +6,10 @@
 
 // Initialisatie van het bord
 void XiaoS3WIOBoard::begin() {
+    
+    // Roep EERST de basisklasse aan zodat de I2C-bus (Wire) netjes start voor je scherm!
+    ESP32Board::begin();
+
     // Configureer de pin voor jouw 1M/1M deler
     pinMode(PIN_VBAT, INPUT);
     
