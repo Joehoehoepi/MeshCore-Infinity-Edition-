@@ -32,7 +32,7 @@ Nodes zitten niet meer vast aan één interface. De interne statemachine (`MeshM
 ### 2. Geavanceerde Hardware Integratie
 
 * **XIAO S3 Batterij Telemetrie:** De standaard XIAO S3 mist interne batterijmeting. In deze firmware is een custom `XiaoS3WIOBoard` klasse gebouwd die gebruik maakt van een fysieke 1M/1M spanningsdeler op `PIN_VBAT` (GPIO 1). De firmware leest de 12-bit ADC uit en berekent het exacte voltage.
-* **XIAO S3 MCU Temperatuur Monitoring:** Voor verbeterde systeemdiagnostiek is live MCU-temperatuur telemetrie toegevoegd. Hiermee wordt de interne temperatuur van de ESP32-S3 direct gemonitord en via het mesh-netwerk (op kanaal 1) gerapporteerd, wat inzicht geeft in de thermische belasting van de chip tijdens intensief radio-gebruik.
+* **ESP32 MCU Temperatuur Monitoring:** Voor verbeterde systeemdiagnostiek is live MCU-temperatuur telemetrie toegevoegd. Hiermee wordt de interne temperatuur van de ESP32 direct gemonitord en via het mesh-netwerk (op kanaal 1) gerapporteerd, wat inzicht geeft in de thermische belasting van de chip tijdens intensief radio-gebruik.
 * **Bootlock Beveiliging:** Ingebouwde `PWRMGT_VOLTAGE_BOOTLOCK` (3.3V) voorkomt schadelijke bootloops bij bijna lege batterijen.
 * **Hardware Fixes:** Actieve power-management fixes (`board.setInhibitSleep(true)`) stabiliseren de stroomvoorziening tijdens het in- en uitschakelen van radio's (cruciaal voor uitbreidingsborden).
 
