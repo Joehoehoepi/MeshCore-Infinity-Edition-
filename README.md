@@ -35,8 +35,9 @@ Nodes zitten niet meer vast aan één interface. De interne statemachine (`MeshM
 * **ESP32 MCU & Netwerk Monitoring:** Voor verbeterde systeemdiagnostiek is live MCU-temperatuur telemetrie en Wi-Fi netwerkmonitoring toegevoegd.
 * **MCU Temperatuur:** De interne temperatuur van de ESP32 wordt direct gemonitord en via het mesh-netwerk (op kanaal 0) gerapporteerd, wat inzicht geeft in de thermische belasting tijdens intensief radio-gebruik.
 * **Wi-Fi Status & Signaalsterkte:** Het actieve IP-adres wordt direct weergegeven op het OLED-display voor snelle identificatie. Daarnaast wordt de Wi-Fi signaalsterkte (RSSI) in dBm real-time als `Analog Input` (op kanaal o) meegestuurd in het telemetrie-pakket, waardoor de netwerkstabiliteit op afstand geanalyseerd kan worden.
+
 <img width="400" alt="image" src="https://github.com/user-attachments/assets/d46a5101-2996-4b1c-96c6-5737ee8c204d" />
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/57ef53c5-34a3-45d3-9c04-31c1b4e19ed9" />
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/57ef53c5-34a3-45d3-9c04-31c1b4e19ed9" />
 
 
 * **Bootlock Beveiliging:** Ingebouwde `PWRMGT_VOLTAGE_BOOTLOCK` (3.3V) voorkomt schadelijke bootloops bij bijna lege batterijen.
@@ -85,9 +86,11 @@ De Infinity Edition maakt een einde aan het hardcoden van netwerkgegevens in de 
 
 * **SSID:** `MeshCore-Configurator`
 * **Wachtwoord:** (Geen wachtwoord)
+
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/ed2e1a9c-94a2-41ca-877b-0cab3c0d2e54" />
 
 3. **Gegevens invullen:** Open je browser en ga naar `http://192.168.4.1` (of de Captive Portal opent automatisch). Je krijgt nu het zwart/neon-groene **Meshcore WiFi Configurator** scherm te zien. Vul hier je SSID en Wachtwoord in en druk op opslaan.
+
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/7869b555-f025-46ff-9e08-977977f5df4c" />
 
 4. **Reboot & Verbinding:** De node herstart zichzelf en zal nu direct verbinden met je netwerk en overschakelen naar de reguliere MeshCore- en Bluetooth-logica.
@@ -127,6 +130,7 @@ Voor ontwikkelaars of gebruikers die de broncode willen inzien of wijzigen.
 * Klik op het **Pijltje naar rechts** (Upload) om de code naar je board te flashen. Zodra de upload start, kun je de node resetten of laten opstarten.
 
 *(Zodra de flash is afgerond, wacht je tot het scherm op "Verbind met AP:" blijft staan en verbind je met de acces point `MeshCore-Configurator` Wi-Fi om de installatie af te ronden!)*
+
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/6894cbaf-c26d-47fe-9f20-2e6ee9d8611c" />
 
 
@@ -135,12 +139,14 @@ Voor ontwikkelaars of gebruikers die de broncode willen inzien of wijzigen.
 Zodra je companion succesvol is verbonden met je thuisnetwerk via de Configurator, kun je de MeshCore app eenvoudig via Wi-Fi (TCP) koppelen:
 
 1. **Lees het IP-adres af:** Kijk op het beeldschermpje van je geconfigureerde companion. Hier zie je onderaan een lokaal IP-adres staan (bijvoorbeeld `192.168.2.54`).
+
 <img width="800"  alt="image" src="https://github.com/user-attachments/assets/5690a510-a85f-4de6-9796-14292de956fa" />
 
 2. **Kies de Wi-Fi optie:** Open de MeshCore app en selecteer in het verbindingsscherm onderin de optie **WIFI**.
 3. **Vul de netwerkgegevens in:**
 * **IP-adres:** Neem het IP-adres over dat op het scherm van je companion staat.
 * **Poort:** Vul hier **`5000`** in.
+
 <img width="800" alt="Schermafbeelding 2026-06-21 083042" src="https://github.com/user-attachments/assets/434edf9b-947a-401d-a3aa-07acaa190bd2" />
 
 4. **Verbinden:** Druk op de grote knop **Verbinden**.
