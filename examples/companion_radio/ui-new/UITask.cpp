@@ -225,7 +225,7 @@ public:
           
           // Combineer het IP-adres en de signaalsterkte in de tmp buffer
           // Voorbeeld output: "IP:192.168.1.12 -65dBm"
-          snprintf(tmp, sizeof(tmp), "IP:%d.%d.%d.%d %lddBm", ip[0], ip[1], ip[2], ip[3], rssi);
+          snprintf(tmp, sizeof(tmp), "%d.%d.%d.%d %lddBm", ip[0], ip[1], ip[2], ip[3], rssi);
           
           display.setTextSize(1); // Size 1 is ca. 8 pixels hoog
           // Y-as naar 56 gezet, zodat hij strak onderaan staat
