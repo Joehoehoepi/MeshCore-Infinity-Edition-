@@ -2,6 +2,7 @@
 
 #include <Arduino.h> // needed for PlatformIO
 #include <Mesh.h>
+#include <WiFi.h>
 
 #define CMD_APP_START                 1
 #define CMD_SEND_TXT_MSG              2
@@ -655,6 +656,10 @@ uint8_t MyMesh::onContactRequest(const ContactInfo &contact, uint32_t sender_tim
 #if defined(ESP32)
       // Haal de interne MCU temperatuur op en voeg deze toe aan het LoRa telemetrie pakket
       telemetry.addTemperature(TELEM_CHANNEL_SELF, temperatureRead());
+      // Infinity fix: Voeg Wi-Fi signaalsterkte (RSSI) toe als Analog Input op het SELF kanaal
+      if (WiFi.status() == WL_CONNECTED) {
+          telemetry.addAnalogInput(TELEM_CHANNEL_SELF, (float)WiFi.RSSI()); 
+      }
 #endif
 
       // query other sensors -- target specific
@@ -1646,6 +1651,10 @@ void MyMesh::handleCmdFrame(size_t len) {
 #if defined(ESP32)
     // Haal de interne MCU temperatuur op en voeg toe aan de lokale app-telemetrie
     telemetry.addTemperature(TELEM_CHANNEL_SELF, temperatureRead());
+    // Infinity fix: Voeg Wi-Fi signaalsterkte (RSSI) toe als Analog Input op het SELF kanaal
+      if (WiFi.status() == WL_CONNECTED) {
+          telemetry.addAnalogInput(TELEM_CHANNEL_SELF, (float)WiFi.RSSI()); 
+      }
 #endif
 
     // query other sensors -- target specific
