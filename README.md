@@ -1,4 +1,3 @@
-<img width="2560" height="1534" alt="image" src="https://github.com/user-attachments/assets/b0eec260-715f-4902-a91f-814f06c42683" />
 # MeshCore Companion Infinity Edition 🚀
 
 Welkom bij de **MeshCore: Infinity Edition**. Deze repository is een onafhankelijke doorontwikkeling van de originele MeshCore-firmware, specifiek gebouwd voor snellere innovatie, bredere hardware-ondersteuning en superieure netwerkstabiliteit op ESP32-architecturen.
