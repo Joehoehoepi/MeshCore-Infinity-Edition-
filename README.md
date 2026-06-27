@@ -1,3 +1,4 @@
+<img width="2560" height="1534" alt="image" src="https://github.com/user-attachments/assets/b0eec260-715f-4902-a91f-814f06c42683" />
 # MeshCore Companion Infinity Edition 🚀
 
 Welkom bij de **MeshCore: Infinity Edition**. Deze repository is een onafhankelijke doorontwikkeling van de originele MeshCore-firmware, specifiek gebouwd voor snellere innovatie, bredere hardware-ondersteuning en superieure netwerkstabiliteit op ESP32-architecturen.
@@ -80,11 +81,12 @@ Zodra de upload is voltooid, start de node op, zoekt hij automatisch naar het ha
 
 De Infinity Edition maakt een einde aan het hardcoden van netwerkgegevens in de broncode. Als de node geen bekende Wi-Fi-netwerken in zijn geheugen (`Preferences`) heeft staan (of als het de allereerste keer is dat de firmware start), treedt de **Captive Portal** in werking.
 
-1. **Allereerste opstart:** Bij de allereerste boot blijft de node (als deze een scherm heeft) op **"Loading..."** staan. Dit is normaal! De node zoekt op de achtergrond naar opgeslagen inloggegevens.
+1. **Allereerste opstart:** Bij de allereerste boot blijft de node (als deze een scherm heeft) op **"Verbind met AP:."** staan.
 2. **Verbind met het Access Point:** Omdat er geen gegevens zijn, zendt de node zijn eigen Wi-Fi netwerk uit. Zoek op je telefoon of laptop naar het netwerk:
 
 * **SSID:** `MeshCore-Configurator`
 * **Wachtwoord:** (Geen wachtwoord)
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/ed2e1a9c-94a2-41ca-877b-0cab3c0d2e54" />
 
 3. **Gegevens invullen:** Open je browser en ga naar `http://192.168.4.1` (of de Captive Portal opent automatisch). Je krijgt nu het zwart/neon-groene **Meshcore WiFi Configurator** scherm te zien. Vul hier je SSID en Wachtwoord in en druk op opslaan.
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/7869b555-f025-46ff-9e08-977977f5df4c" />
@@ -125,7 +127,9 @@ Voor ontwikkelaars of gebruikers die de broncode willen inzien of wijzigen.
 * Zet de node in Bootloader-modus (zie Methode 1).
 * Klik op het **Pijltje naar rechts** (Upload) om de code naar je board te flashen. Zodra de upload start, kun je de node resetten of laten opstarten.
 
-*(Zodra de flash is afgerond, wacht je tot het scherm op "Loading..." blijft staan en verbind je met de acces point `MeshCore-Configurator` Wi-Fi om de installatie af te ronden!)*
+*(Zodra de flash is afgerond, wacht je tot het scherm op "Verbind met AP:" blijft staan en verbind je met de acces point `MeshCore-Configurator` Wi-Fi om de installatie af te ronden!)*
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/6894cbaf-c26d-47fe-9f20-2e6ee9d8611c" />
+
 
 ## 📱 Verbinden met de Companion App (via Wi-Fi)
 
