@@ -36,7 +36,7 @@ Nodes zitten niet meer vast aan één interface. De interne statemachine (`MeshM
 * **MCU Temperatuur:** De interne temperatuur van de ESP32 wordt direct gemonitord en via het mesh-netwerk (op kanaal 0) gerapporteerd, wat inzicht geeft in de thermische belasting tijdens intensief radio-gebruik.
 * **Wi-Fi Status & Signaalsterkte:** Het actieve IP-adres wordt direct weergegeven op het OLED-display voor snelle identificatie. Daarnaast wordt de Wi-Fi signaalsterkte (RSSI) in dBm real-time als `Analog Input` (op kanaal o) meegestuurd in het telemetrie-pakket, waardoor de netwerkstabiliteit op afstand geanalyseerd kan worden.
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/d46a5101-2996-4b1c-96c6-5737ee8c204d" />
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/57ef53c5-34a3-45d3-9c04-31c1b4e19ed9" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/57ef53c5-34a3-45d3-9c04-31c1b4e19ed9" />
 
 
 * **Bootlock Beveiliging:** Ingebouwde `PWRMGT_VOLTAGE_BOOTLOCK` (3.3V) voorkomt schadelijke bootloops bij bijna lege batterijen.
