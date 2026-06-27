@@ -32,8 +32,12 @@ Nodes zitten niet meer vast aan één interface. De interne statemachine (`MeshM
 ### 2. Geavanceerde Hardware Integratie
 
 * **XIAO S3 Batterij Telemetrie:** De standaard XIAO S3 mist interne batterijmeting. In deze firmware is een custom `XiaoS3WIOBoard` klasse gebouwd die gebruik maakt van een fysieke 1M/1M spanningsdeler op `PIN_VBAT` (GPIO 1). De firmware leest de 12-bit ADC uit en berekent het exacte voltage.
-* **ESP32 MCU Temperatuur Monitoring:** Voor verbeterde systeemdiagnostiek is live MCU-temperatuur telemetrie toegevoegd. Hiermee wordt de interne temperatuur van de ESP32 direct gemonitord en via het mesh-netwerk (op kanaal 1) gerapporteerd, wat inzicht geeft in de thermische belasting van de chip tijdens intensief radio-gebruik.
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/b87a1a9b-a47c-4c2e-bd5f-ffcc7f005257" />
+* **ESP32 MCU & Netwerk Monitoring:** Voor verbeterde systeemdiagnostiek is live MCU-temperatuur telemetrie en Wi-Fi netwerkmonitoring toegevoegd.
+* **MCU Temperatuur:** De interne temperatuur van de ESP32 wordt direct gemonitord en via het mesh-netwerk (op kanaal 0) gerapporteerd, wat inzicht geeft in de thermische belasting tijdens intensief radio-gebruik.
+* **Wi-Fi Status & Signaalsterkte:** Het actieve IP-adres wordt direct weergegeven op het OLED-display voor snelle identificatie. Daarnaast wordt de Wi-Fi signaalsterkte (RSSI) in dBm real-time als `Analog Input` (op kanaal o) meegestuurd in het telemetrie-pakket, waardoor de netwerkstabiliteit op afstand geanalyseerd kan worden.
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/d46a5101-2996-4b1c-96c6-5737ee8c204d" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/57ef53c5-34a3-45d3-9c04-31c1b4e19ed9" />
+
 
 * **Bootlock Beveiliging:** Ingebouwde `PWRMGT_VOLTAGE_BOOTLOCK` (3.3V) voorkomt schadelijke bootloops bij bijna lege batterijen.
 * **Hardware Fixes:** Actieve power-management fixes (`board.setInhibitSleep(true)`) stabiliseren de stroomvoorziening tijdens het in- en uitschakelen van radio's (cruciaal voor uitbreidingsborden).
