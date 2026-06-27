@@ -221,7 +221,12 @@ public:
         IPAddress ip = WiFi.localIP();
         // Infinity fix: Print alleen het IP als er daadwerkelijk een verbinding is
         if (ip[0] != 0) { 
-          snprintf(tmp, sizeof(tmp), "IP: %d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3]);
+          long rssi = WiFi.RSSI(); // Haal de actuele signaalsterkte op
+          
+          // Combineer het IP-adres en de signaalsterkte in de tmp buffer
+          // Voorbeeld output: "IP:192.168.1.12 -65dBm"
+          snprintf(tmp, sizeof(tmp), "IP:%d.%d.%d.%d %lddBm", ip[0], ip[1], ip[2], ip[3], rssi);
+          
           display.setTextSize(1); // Size 1 is ca. 8 pixels hoog
           // Y-as naar 56 gezet, zodat hij strak onderaan staat
           display.drawTextCentered(display.width() / 2, 56, tmp); 
