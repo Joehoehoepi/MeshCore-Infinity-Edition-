@@ -140,7 +140,7 @@ Zodra je companion succesvol is verbonden met je thuisnetwerk via de Configurato
 
 1. **Lees het IP-adres af:** Kijk op het beeldschermpje van je geconfigureerde companion. Hier zie je onderaan een lokaal IP-adres staan (bijvoorbeeld `192.168.2.54`).
 
-<img width="800"  alt="image" src="https://github.com/user-attachments/assets/5690a510-a85f-4de6-9796-14292de956fa" />
+<img width="500"  alt="image" src="https://github.com/user-attachments/assets/5690a510-a85f-4de6-9796-14292de956fa" />
 
 2. **Kies de Wi-Fi optie:** Open de MeshCore app en selecteer in het verbindingsscherm onderin de optie **WIFI**.
 3. **Vul de netwerkgegevens in:**
