@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>MeshCore Infinity - Direct Flasher</title>
+    <title>MeshCore Infinity Edition - Flasher</title>
     <style>
         :root {
             --neon-green: #00ff66;
@@ -84,6 +84,32 @@
             box-shadow: 0 0 10px var(--neon-glow);
         }
 
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--text-dim);
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #ff4444;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            color: #ff4444;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
         .btn-row {
             display: flex;
             gap: 10px;
@@ -160,11 +186,16 @@
 
 <div class="terminal-container">
     <h1>MeshCore Infinity</h1>
-    <div class="subtitle">// Direct Flasher (Geen Erase / Behoud Settings)</div>
+    <div class="subtitle">// Direct Flasher</div>
 
     <div class="form-group">
         <label for="boardSelect">&gt; Selecteer Hardware Model:</label>
         <select id="boardSelect"></select>
+    </div>
+
+    <div class="checkbox-group" onclick="document.getElementById('eraseCheck').click(); event.stopPropagation();">
+        <input type="checkbox" id="eraseCheck" onclick="event.stopPropagation();">
+        <label for="eraseCheck">Volledige flash erase uitvoeren (wis alle instellingen/NVRAM)</label>
     </div>
 
     <div class="btn-row">
@@ -179,12 +210,11 @@
     <textarea id="log" readonly placeholder="[SYSTEM READY] Wacht op actie..."></textarea>
 
     <div class="footer-note">
-        Geen geforceerde erases: je instellingen blijven netjes bewaard.
+        Standaard blijven instellingen behouden. Vink de optie hierboven alleen aan als je volledig wilt wissen.
     </div>
 </div>
 
 <script type="module">
-    // Gebruik de officiële single-file bundle om ontbrekende/gebroken sub-modules te voorkomen
     import { ESPLoader, Transport } from "https://unpkg.com/esptool-js@0.6.1/bundle.js";
 
     const firmwareConfigs = [
@@ -245,6 +275,7 @@
     ];
 
     const boardSelect = document.getElementById('boardSelect');
+    const eraseCheck = document.getElementById('eraseCheck');
     const connectBtn = document.getElementById('connectBtn');
     const disconnectBtn = document.getElementById('disconnectBtn');
     const flashBtn = document.getElementById('flashBtn');
@@ -254,7 +285,6 @@
     let transport;
     let esploader;
 
-    // Vul de dropdown
     firmwareConfigs.forEach((config, index) => {
         const option = document.createElement('option');
         option.value = index;
@@ -315,8 +345,8 @@
         try {
             const selectedConfig = firmwareConfigs[boardSelect.value];
             const fileArray = [];
+            const shouldErase = eraseCheck.checked;
 
-            // Haal automatisch alle bestanden op via fetch obv de gekozen hardware
             for (const part of selectedConfig.parts) {
                 log(`Downloaden: ${part.path}...`);
                 const response = await fetch(part.path);
@@ -330,12 +360,16 @@
                 });
             }
 
-            log('Bezig met wegschrijven naar flash (settings behouden)...');
+            if (shouldErase) {
+                log('[WAARSCHUWING] Volledige flash erase ingeschakeld! Alle data wordt gewist...');
+            } else {
+                log('Bezig met wegschrijven naar flash (settings behouden)...');
+            }
 
             const flashOptions = {
                 fileArray: fileArray,
                 flashSize: "keep",
-                eraseAll: false, // Dit zorgt ervoor dat je settings NIET gewist worden!
+                eraseAll: shouldErase, 
                 compress: true,
                 reportProgress: (fileIndex, written, total) => {
                     const percent = Math.floor((written / total) * 100);
@@ -344,7 +378,7 @@
             };
 
             await esploader.writeFlash(flashOptions);
-            log('\n[SUCCES] Firmware succesvol geflasht zonder data te wissen!');
+            log('\n[SUCCES] Firmware succesvol geflasht!');
             
             await esploader.after("hard_reset");
             log('[HERSTART] Apparaat herstart.');
