@@ -98,7 +98,7 @@ De Infinity Edition maakt een einde aan het hardcoden van netwerkgegevens in de 
 ## ⚡ Firmware Flashen (Twee methodes)
 
 Je kunt de Infinity Edition op twee manieren flashen: via een gebruiksvriendelijke Web Flasher of handmatig via Visual Studio Code (PlatformIO).
-Je kunt de gecompileerde firmware met captive portal en acces point vinden in de map `compiled firmware`.
+Je kunt de gecompileerde firmware met captive portal en acces point vinden in de map `compiled_firmware`.
 
 ### Methode 1: Snel flashen via de MeshCore Web Flasher (Aangeraden)
 
