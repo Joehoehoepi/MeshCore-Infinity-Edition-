@@ -273,6 +273,7 @@
         const boardSelect = document.getElementById('boardSelect');
         const eraseCheckbox = document.getElementById('eraseCheckbox');
         const installButton = document.getElementById('installButton');
+        let currentBlobUrl = null;
 
         // Populate dropdown menu
         firmwareConfigs.forEach((config, index) => {
@@ -286,7 +287,6 @@
             const selectedIndex = boardSelect.value;
             const selectedConfig = firmwareConfigs[selectedIndex];
 
-            // Build manifest object dynamically including erase preference
             const manifest = {
                 name: selectedConfig.name,
                 version: selectedConfig.version,
@@ -294,7 +294,17 @@
                 builds: selectedConfig.builds
             };
 
-            installButton.manifest = JSON.stringify(manifest);
+            // Ruim vorige blob op om geheugenlekkage te voorkomen
+            if (currentBlobUrl) {
+                URL.revokeObjectURL(currentBlobUrl);
+            }
+
+            // Maak een virtuele URL van de JSON-data
+            const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+            currentBlobUrl = URL.createObjectURL(blob);
+
+            // Wijs de Blob-URL toe aan de installatieknop
+            installButton.setAttribute('manifest', currentBlobUrl);
         }
 
         boardSelect.addEventListener('change', updateManifest);
