@@ -1,0 +1,15 @@
+{
+  "name": "MeshCore Infinity Edition - Heltec V4 TFT",
+  "version": "1.17.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32S3",
+      "parts": [
+        { "path": "compiled firmware/heltec_v4_tft_companion_radio/bootloader.bin", "offset": 0 },
+        { "path": "compiled firmware/heltec_v4_tft_companion_radio/partitions.bin", "offset": 32768 },
+        { "path": "compiled firmware/heltec_v4_tft_companion_radio/boot_app0.bin", "offset": 57344 },
+        { "path": "compiled firmware/heltec_v4_tft_companion_radio/firmware.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
