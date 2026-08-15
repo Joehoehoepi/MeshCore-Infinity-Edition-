@@ -184,7 +184,8 @@
 </div>
 
 <script type="module">
-    import { ESPLoader, Transport } from "https://esm.sh/esptool-js";
+    // Gebruik de officiële single-file bundle om ontbrekende/gebroken sub-modules te voorkomen
+    import { ESPLoader, Transport } from "https://unpkg.com/esptool-js@0.6.1/bundle.js";
 
     const firmwareConfigs = [
         {
