@@ -1,95 +1,307 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MeshCore Infinity Edition Flasher</title>
+    <title>MeshCore Infinity Edition - Web Flasher</title>
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
     <style>
+        :root {
+            --neon-green: #00ff66;
+            --neon-glow: rgba(0, 255, 102, 0.3);
+            --bg-dark: #050805;
+            --card-bg: #0d140e;
+            --text-main: #00ff66;
+            --text-dim: #00aa44;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #111827;
-            color: #f3f4f6;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             margin: 0;
-            padding: 40px 20px;
+            padding: 20px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
         }
-        .container {
-            max-width: 600px;
+
+        .terminal-container {
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 25px var(--neon-glow);
+            border-radius: 6px;
             width: 100%;
-            background: #1f2937;
+            max-width: 550px;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            text-align: center;
+            box-sizing: border-box;
         }
+
         h1 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 2px;
             margin-top: 0;
-            color: #60a5fa;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--neon-glow);
         }
-        p {
-            color: #9ca3af;
-            line-height: 1.5;
-            margin-bottom: 24px;
+
+        .subtitle {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 25px;
+            text-transform: uppercase;
         }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            border: 1px solid #4b5563;
-            background-color: #374151;
-            color: white;
-            font-size: 16px;
+            background-color: var(--bg-dark);
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            box-sizing: border-box;
         }
-        esp-web-install-button {
-            margin: 20px 0;
-            display: block;
+
+        select:focus {
+            box-shadow: 0 0 10px var(--neon-glow);
         }
-        .note {
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-dark);
+            border: 1px solid var(--text-dim);
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            accent-color: var(--neon-green);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
             font-size: 0.85rem;
-            color: #6b7280;
+            color: var(--text-main);
+        }
+
+        /* ESP Web Tools Button Customization */
+        esp-web-install-button {
+            display: block;
+            width: 100%;
             margin-top: 15px;
+            --esp-tools-button-color: var(--neon-green);
+            --esp-tools-button-text-color: var(--bg-dark);
+            --esp-tools-button-border-radius: 4px;
+        }
+
+        /* Styling inside shadow DOM fallback/variables */
+        esp-web-install-button::part(button) {
+            background-color: var(--neon-green) !important;
+            color: var(--bg-dark) !important;
+            font-family: 'Courier New', Courier, monospace !important;
+            font-weight: bold !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            border: 2px solid var(--neon-green) !important;
+            box-shadow: 0 0 10px var(--neon-glow) !important;
+            width: 100% !important;
+            padding: 14px !important;
+        }
+
+        esp-web-install-button::part(button):hover {
+            background-color: var(--bg-dark) !important;
+            color: var(--neon-green) !important;
+        }
+
+        .footer-note {
+            margin-top: 25px;
+            font-size: 0.75rem;
+            text-align: center;
+            color: var(--text-dim);
+            border-top: 1px dashed var(--text-dim);
+            padding-top: 15px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>MeshCore Infinity Edition Flasher</h1>
-        <p>Selecteer je hardwareversie en flash de MeshCore firmware rechtstreeks via je browser.</p>
-        
-        <!-- Dropdown menu -->
-        <select id="board-selector">
-            <option value="manifest_Heltec_V2.json">Heltec LoRa 32 V2</option>
-            <option value="manifest_Heltec_v3.json">Heltec LoRa 32 V3</option>
-            <option value="manifest_Heltec_v4.json">Heltec LoRa 32 V4</option>
-            <option value="manifest_Heltec_v4TFT.json">Heltec LoRa 32 V4 TFT</option>
-            <option value="manifest_LilyGO_T3S3.json">LilyGO T3S3</option>
-            <option value="manifest_Xiao_S3_Wio.json">Seeed Studio XIAO ESP32S3</option>
-        </select>
 
-        <!-- Flash knop (Start standaard met de V2) -->
-        <esp-web-install-button id="install-button" manifest="manifest_Heltec_v2.json">
-            <button slot="activate">Install Firmware</button>
-            <span slot="unsupported">Je browser ondersteunt geen Web Serial. Gebruik Chrome of Edge.</span>
-        </esp-web-install-button>
+    <div class="terminal-container">
+        <h1>MeshCore Infinity</h1>
+        <div class="subtitle">// Flasher v1.17.0</div>
 
-        <div class="note">Zorg ervoor dat je apparaat via USB is aangesloten en de juiste USB-drivers zijn geïnstalleerd.</div>
+        <div class="form-group">
+            <label for="boardSelect">&gt; Selecteer Hardware Model:</label>
+            <select id="boardSelect"></select>
+        </div>
+
+        <div class="checkbox-group" id="eraseContainer">
+            <input type="checkbox" id="eraseCheckbox">
+            <label for="eraseCheckbox">Wis geheugen / flash (Erase NVS & Settings bij nieuwe installatie)</label>
+        </div>
+
+        <div id="installButtonContainer">
+            <esp-web-install-button id="installButton"></esp-web-install-button>
+        </div>
+
+        <div class="footer-note">
+            [SYSTEM READY] Sluit uw ESP32 via USB aan en selecteer de juiste firmware.
+        </div>
     </div>
 
-    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
-    
-    <!-- Script om het manifest te updaten als je een ander bordje kiest -->
     <script>
-        const selector = document.getElementById('board-selector');
-        const installButton = document.getElementById('install-button');
+        const firmwareConfigs = [
+            {
+                name: "MeshCore Infinity Edition - Heltec V2",
+                version: "1.17.0",
+                builds: [
+                    {
+                        chipFamily: "ESP32",
+                        parts: [
+                            { path: "compiled_firmware/Heltec_v2_companion/bootloader.bin", offset: 4096 },
+                            { path: "compiled_firmware/Heltec_v2_companion/partitions.bin", offset: 32768 },
+                            { path: "compiled_firmware/Heltec_v2_companion/boot_app0.bin", offset: 57344 },
+                            { path: "compiled_firmware/Heltec_v2_companion/firmware.bin", offset: 65536 }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "MeshCore Infinity Edition - Heltec V3",
+                version: "1.17.0",
+                builds: [
+                    {
+                        chipFamily: "ESP32S3",
+                        parts: [
+                            { path: "compiled_firmware/Heltec_v3_companion/bootloader.bin", offset: 0 },
+                            { path: "compiled_firmware/Heltec_v3_companion/partitions.bin", offset: 32768 },
+                            { path: "compiled_firmware/Heltec_v3_companion/boot_app0.bin", offset: 57344 },
+                            { path: "compiled_firmware/Heltec_v3_companion/firmware.bin", offset: 65536 }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "MeshCore Infinity Edition - Heltec V4",
+                version: "1.17.0",
+                builds: [
+                    {
+                        chipFamily: "ESP32S3",
+                        parts: [
+                            { path: "compiled_firmware/Heltec_v4_companion/bootloader.bin", offset: 0 },
+                            { path: "compiled_firmware/Heltec_v4_companion/partitions.bin", offset: 32768 },
+                            { path: "compiled_firmware/Heltec_v4_companion/boot_app0.bin", offset: 57344 },
+                            { path: "compiled_firmware/Heltec_v4_companion/firmware.bin", offset: 65536 }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "MeshCore Infinity Edition - Heltec V4 TFT",
+                version: "1.17.0",
+                builds: [
+                    {
+                        chipFamily: "ESP32S3",
+                        parts: [
+                            { path: "compiled_firmware/Heltec_v4_tft_companion_radio/bootloader.bin", offset: 0 },
+                            { path: "compiled_firmware/Heltec_v4_tft_companion_radio/partitions.bin", offset: 32768 },
+                            { path: "compiled_firmware/Heltec_v4_tft_companion_radio/boot_app0.bin", offset: 57344 },
+                            { path: "compiled_firmware/Heltec_v4_tft_companion_radio/firmware.bin", offset: 65536 }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "MeshCore Infinity Edition - LilyGO T3S3",
+                version: "1.17.0",
+                builds: [
+                    {
+                        chipFamily: "ESP32S3",
+                        parts: [
+                            { path: "compiled_firmware/LilyGo_T3S3_sx1262_companion/bootloader.bin", offset: 0 },
+                            { path: "compiled_firmware/LilyGo_T3S3_sx1262_companion/partitions.bin", offset: 32768 },
+                            { path: "compiled_firmware/LilyGo_T3S3_sx1262_companion/boot_app0.bin", offset: 57344 },
+                            { path: "compiled_firmware/LilyGo_T3S3_sx1262_companion/firmware.bin", offset: 65536 }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "MeshCore Infinity Edition - Xiao S3 Wio",
+                version: "1.17.0",
+                builds: [
+                    {
+                        chipFamily: "ESP32S3",
+                        parts: [
+                            { path: "compiled_firmware/Xiao_S3_WIO_companion/bootloader.bin", offset: 0 },
+                            { path: "compiled_firmware/Xiao_S3_WIO_companion/partitions.bin", offset: 32768 },
+                            { path: "compiled_firmware/Xiao_S3_WIO_companion/boot_app0.bin", offset: 57344 },
+                            { path: "compiled_firmware/Xiao_S3_WIO_companion/firmware.bin", offset: 65536 }
+                        ]
+                    }
+                ]
+            }
+        ];
 
-        selector.addEventListener('change', (event) => {
-            installButton.setAttribute('manifest', event.target.value);
+        const boardSelect = document.getElementById('boardSelect');
+        const eraseCheckbox = document.getElementById('eraseCheckbox');
+        const installButton = document.getElementById('installButton');
+
+        // Populate dropdown menu
+        firmwareConfigs.forEach((config, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = config.name.replace("MeshCore Infinity Edition - ", "");
+            boardSelect.appendChild(option);
         });
+
+        function updateManifest() {
+            const selectedIndex = boardSelect.value;
+            const selectedConfig = firmwareConfigs[selectedIndex];
+
+            // Build manifest object dynamically including erase preference
+            const manifest = {
+                name: selectedConfig.name,
+                version: selectedConfig.version,
+                new_install_prompt_erase: eraseCheckbox.checked,
+                builds: selectedConfig.builds
+            };
+
+            installButton.manifest = JSON.stringify(manifest);
+        }
+
+        boardSelect.addEventListener('change', updateManifest);
+        eraseCheckbox.addEventListener('change', updateManifest);
+
+        // Initial load
+        updateManifest();
     </script>
 </body>
 </html>
