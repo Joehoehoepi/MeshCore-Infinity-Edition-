@@ -380,8 +380,14 @@
             await esploader.writeFlash(flashOptions);
             log('\n[SUCCES] Firmware succesvol geflasht!');
             
-            await esploader.after("hard_reset");
-            log('[HERSTART] Apparaat herstart.');
+            // Handmatige harde reset via DTR/RTS pulsschakeling i.p.v. esploader.after()
+            log('[HERSTART] Harde reset uitvoeren...');
+            await transport.setRTS(true);
+            await transport.setDTR(false);
+            await new Promise(resolve => setTimeout(resolve, 100));
+            await transport.setRTS(false);
+            await transport.setDTR(true);
+            log('[KLAAR] Apparaat is herstart!');
 
         } catch (e) {
             log(`\n[FOUT] Tijdens flashen: ${e.message}`);
