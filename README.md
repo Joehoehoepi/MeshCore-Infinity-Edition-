@@ -109,7 +109,7 @@ Je kunt een gecompileerde `.bin` file bestand direct vanuit je browser flashen m
 * Houd de **BOOT**-knop ingedrukt.
 * Druk kort op de **RESET**-knop.
 * Laat de **BOOT**-knop los. (Het scherm blijft nu zwart).
-3. Ga naar [https://flasher.meshcore.io/](https://flasher.meshcore.io/).
+3. Ga naar [https://flasher.meshcore.io/](https://flasher.meshcore.io/) of https://joehoehoepi.github.io/MeshCore-Infinity-Edition-/flasher.html.
 4. Kies in de interface voor **Custom Firmware** en selecteer jouw `firmware.bin` bestand.
 5. Klik op Flash en wacht tot het proces voltooid is.
 
