@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>MeshCore Direct Flasher (Geen Gezeik Tool)</title>
+    <style>
+        body { font-family: sans-serif, Arial; background: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+        .container { max-width: 850px; margin: auto; background: #1e1e1e; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h2 { color: #4CAF50; margin-top: 0; }
+        .row { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        label { width: 140px; font-weight: bold; font-size: 14px; }
+        input[type="file"] { flex: 1; background: #2d2d2d; color: #fff; border: 1px solid #444; padding: 6px; border-radius: 4px; }
+        input[type="text"] { width: 110px; background: #2d2d2d; color: #fff; border: 1px solid #444; padding: 6px; border-radius: 4px; text-align: center; font-family: monospace; }
+        button { background: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 15px; border-radius: 4px; cursor: pointer; margin-right: 10px; font-weight: bold; }
+        button:hover { background: #45a049; }
+        button#disconnectBtn { background: #d9534f; }
+        button#disconnectBtn:hover { background: #c9302c; }
+        textarea { width: 100%; height: 260px; background: #0a0a0a; color: #00ff00; font-family: monospace; padding: 10px; border: 1px solid #333; border-radius: 4px; box-sizing: border-box; resize: vertical; margin-top: 15px; font-size: 13px; }
+        .actions { margin-top: 20px; border-top: 1px solid #333; padding-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>MeshCore Direct Flasher (Geen Gezeik Tool)</h2>
+    <p>Rechtstreekse flasher via Web Serial en <code>esptool-js</code>. Geen checks, geen manifests, en `eraseAll` staat geforceerd op <strong>false</strong>.</p>
+    
+    <div class="actions">
+        <button id="connectBtn">1. Verbind ESP32</button>
+        <button id="disconnectBtn" disabled>Ontkoppel</button>
+    </div>
+
+    <hr style="border-color: #333; margin: 20px 0;">
+
+    <h3>Bestanden & Offsets</h3>
+    
+    <div class="row">
+        <label>Bootloader:</label>
+        <input type="file" id="bootloaderFile">
+        <input type="text" id="bootloaderOffset" value="0x0000">
+    </div>
+    
+    <div class="row">
+        <label>Partitions:</label>
+        <input type="file" id="partitionsFile">
+        <input type="text" id="partitionsOffset" value="0x8000">
+    </div>
+
+    <div class="row">
+        <label>Boot App0:</label>
+        <input type="file" id="bootApp0File">
+        <input type="text" id="bootApp0Offset" value="0xe000">
+    </div>
+
+    <div class="row">
+        <label>Firmware.bin:</label>
+        <input type="file" id="firmwareFile">
+        <input type="text" id="firmwareOffset" value="0x10000">
+    </div>
+
+    <div class="actions">
+        <button id="flashBtn" disabled style="background: #ff9800;">2. Start Flashen (Behoud Settings)</button>
+    </div>
+
+    <textarea id="log" readonly placeholder="Log output verschijnt hier..."></textarea>
+</div>
+
+<script type="module">
+    import { ESPLoader, Transport } from "https://esm.sh/esptool-js";
+
+    let port;
+    let transport;
+    let esploader;
+
+    const connectBtn = document.getElementById('connectBtn');
+    const disconnectBtn = document.getElementById('disconnectBtn');
+    const flashBtn = document.getElementById('flashBtn');
+    const logArea = document.getElementById('log');
+
+    function log(text) {
+        logArea.value += text + '\n';
+        logArea.scrollTop = logArea.scrollHeight;
+    }
+
+    const terminal = {
+        clean() { logArea.value = ''; },
+        writeLine(data) { log(data); },
+        write(data) { logArea.value += data; logArea.scrollTop = logArea.scrollHeight; }
+    };
+
+    connectBtn.addEventListener('click', async () => {
+        try {
+            port = await navigator.serial.requestPort();
+            transport = new Transport(port, true);
+            
+            esploader = new ESPLoader({
+                transport: transport,
+                baudrate: 921600, // Maximale snelheid voor snelle overdracht
+                terminal: terminal
+            });
+
+            const chip = await esploader.main();
+            log(`\nVerbonden met chip: ${chip}`);
+            
+            connectBtn.disabled = true;
+            disconnectBtn.disabled = false;
+            flashBtn.disabled = false;
+        } catch (e) {
+            log(`Fout bij verbinden: ${e.message}`);
+        }
+    });
+
+    disconnectBtn.addEventListener('click', async () => {
+        if (transport) {
+            await transport.disconnect();
+        }
+        connectBtn.disabled = false;
+        disconnectBtn.disabled = true;
+        flashBtn.disabled = true;
+        log('\nApparaat ontkoppeld.');
+    });
+
+    flashBtn.addEventListener('click', async () => {
+        if (!esploader) return;
+
+        flashBtn.disabled = true;
+        terminal.clean();
+        log('Start flash proces...');
+
+        try {
+            const fileEntries = [
+                { fileInput: 'bootloaderFile', offsetInput: 'bootloaderOffset' },
+                { fileInput: 'partitionsFile', offsetInput: 'partitionsOffset' },
+                { fileInput: 'bootApp0File', offsetInput: 'bootApp0Offset' },
+                { fileInput: 'firmwareFile', offsetInput: 'firmwareOffset' }
+            ];
+
+            const fileArray = [];
+
+            for (const entry of fileEntries) {
+                const fileInput = document.getElementById(entry.fileInput);
+                const offsetInput = document.getElementById(entry.offsetInput);
+
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const buffer = await file.arrayBuffer();
+                    const data = new Uint8Array(buffer);
+                    const offset = parseInt(offsetInput.value, 16);
+
+                    fileArray.push({ data: data, address: offset });
+                    log(`Ingelezen: ${file.name} op adres 0x${offset.toString(16)}`);
+                }
+            }
+
+            if (fileArray.length === 0) {
+                alert('Selecteer ten minste één bestand om te flashen!');
+                flashBtn.disabled = false;
+                return;
+            }
+
+            const flashOptions = {
+                fileArray: fileArray,
+                flashSize: "keep",
+                eraseAll: false, // DIT IS DE BELANGRIJKSTE: voorkomt dat de flash leeggetrokken wordt
+                compress: true,
+                reportProgress: (fileIndex, written, total) => {
+                    const percent = Math.floor((written / total) * 100);
+                    log(`Voortgang bestand ${fileIndex + 1}: ${percent}% (${written}/${total} bytes)`);
+                }
+            };
+
+            await esploader.writeFlash(flashOptions);
+            log('\n--- FLASHEN SUCCESVOL VOLTOOID! ---');
+            
+            await esploader.after("hard_reset");
+            log('Apparaat is herstart.');
+
+        } catch (e) {
+            log(`\nFout tijdens flashen: ${e.message}`);
+        } finally {
+            flashBtn.disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>
