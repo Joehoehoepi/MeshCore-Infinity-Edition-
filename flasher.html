@@ -2,80 +2,264 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>MeshCore Direct Flasher (Geen Gezeik Tool)</title>
+    <title>MeshCore Infinity - Direct Flasher</title>
     <style>
-        body { font-family: sans-serif, Arial; background: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
-        .container { max-width: 850px; margin: auto; background: #1e1e1e; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        h2 { color: #4CAF50; margin-top: 0; }
-        .row { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        label { width: 140px; font-weight: bold; font-size: 14px; }
-        input[type="file"] { flex: 1; background: #2d2d2d; color: #fff; border: 1px solid #444; padding: 6px; border-radius: 4px; }
-        input[type="text"] { width: 110px; background: #2d2d2d; color: #fff; border: 1px solid #444; padding: 6px; border-radius: 4px; text-align: center; font-family: monospace; }
-        button { background: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 15px; border-radius: 4px; cursor: pointer; margin-right: 10px; font-weight: bold; }
-        button:hover { background: #45a049; }
-        button#disconnectBtn { background: #d9534f; }
-        button#disconnectBtn:hover { background: #c9302c; }
-        textarea { width: 100%; height: 260px; background: #0a0a0a; color: #00ff00; font-family: monospace; padding: 10px; border: 1px solid #333; border-radius: 4px; box-sizing: border-box; resize: vertical; margin-top: 15px; font-size: 13px; }
-        .actions { margin-top: 20px; border-top: 1px solid #333; padding-top: 15px; }
+        :root {
+            --neon-green: #00ff66;
+            --neon-glow: rgba(0, 255, 102, 0.3);
+            --bg-dark: #050805;
+            --card-bg: #0d140e;
+            --text-main: #00ff66;
+            --text-dim: #00aa44;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .terminal-container {
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 25px var(--neon-glow);
+            border-radius: 6px;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-top: 0;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        select {
+            width: 100%;
+            background-color: var(--bg-dark);
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        select:focus {
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            background-color: var(--neon-green);
+            color: var(--bg-dark);
+            border: 2px solid var(--neon-green);
+            padding: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--neon-glow);
+            font-size: 0.9rem;
+        }
+
+        button:hover {
+            background-color: var(--bg-dark);
+            color: var(--neon-green);
+        }
+
+        button:disabled {
+            border-color: #333;
+            background-color: #111;
+            color: #555;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        button#disconnectBtn {
+            background-color: transparent;
+            color: #ff4444;
+            border-color: #ff4444;
+            box-shadow: none;
+        }
+
+        button#disconnectBtn:hover:not(:disabled) {
+            background-color: #ff4444;
+            color: var(--bg-dark);
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: var(--bg-dark);
+            color: var(--neon-green);
+            font-family: 'Courier New', Courier, monospace;
+            padding: 12px;
+            border: 1px solid var(--text-dim);
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 0.75rem;
+            text-align: center;
+            color: var(--text-dim);
+            border-top: 1px dashed var(--text-dim);
+            padding-top: 12px;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>MeshCore Direct Flasher (Geen Gezeik Tool)</h2>
-    <p>Rechtstreekse flasher via Web Serial en <code>esptool-js</code>. Geen checks, geen manifests, en `eraseAll` staat geforceerd op <strong>false</strong>.</p>
-    
-    <div class="actions">
-        <button id="connectBtn">1. Verbind ESP32</button>
+<div class="terminal-container">
+    <h1>MeshCore Infinity</h1>
+    <div class="subtitle">// Direct Flasher (Geen Erase / Behoud Settings)</div>
+
+    <div class="form-group">
+        <label for="boardSelect">&gt; Selecteer Hardware Model:</label>
+        <select id="boardSelect"></select>
+    </div>
+
+    <div class="btn-row">
+        <button id="connectBtn">1. Verbind USB</button>
         <button id="disconnectBtn" disabled>Ontkoppel</button>
     </div>
 
-    <hr style="border-color: #333; margin: 20px 0;">
-
-    <h3>Bestanden & Offsets</h3>
-    
-    <div class="row">
-        <label>Bootloader:</label>
-        <input type="file" id="bootloaderFile">
-        <input type="text" id="bootloaderOffset" value="0x0000">
-    </div>
-    
-    <div class="row">
-        <label>Partitions:</label>
-        <input type="file" id="partitionsFile">
-        <input type="text" id="partitionsOffset" value="0x8000">
+    <div class="btn-row">
+        <button id="flashBtn" disabled style="background-color: #ffaa00; border-color: #ffaa00; color: #000;">2. Start Flashen</button>
     </div>
 
-    <div class="row">
-        <label>Boot App0:</label>
-        <input type="file" id="bootApp0File">
-        <input type="text" id="bootApp0Offset" value="0xe000">
-    </div>
+    <textarea id="log" readonly placeholder="[SYSTEM READY] Wacht op actie..."></textarea>
 
-    <div class="row">
-        <label>Firmware.bin:</label>
-        <input type="file" id="firmwareFile">
-        <input type="text" id="firmwareOffset" value="0x10000">
+    <div class="footer-note">
+        Geen geforceerde erases: je instellingen blijven netjes bewaard.
     </div>
-
-    <div class="actions">
-        <button id="flashBtn" disabled style="background: #ff9800;">2. Start Flashen (Behoud Settings)</button>
-    </div>
-
-    <textarea id="log" readonly placeholder="Log output verschijnt hier..."></textarea>
 </div>
 
 <script type="module">
     import { ESPLoader, Transport } from "https://esm.sh/esptool-js";
 
-    let port;
-    let transport;
-    let esploader;
+    const firmwareConfigs = [
+        {
+            name: "Heltec V2",
+            parts: [
+                { path: "compiled_firmware/Heltec_v2_companion/bootloader.bin", offset: 0x1000 },
+                { path: "compiled_firmware/Heltec_v2_companion/partitions.bin", offset: 0x8000 },
+                { path: "compiled_firmware/Heltec_v2_companion/boot_app0.bin", offset: 0xe000 },
+                { path: "compiled_firmware/Heltec_v2_companion/firmware.bin", offset: 0x10000 }
+            ]
+        },
+        {
+            name: "Heltec V3",
+            parts: [
+                { path: "compiled_firmware/Heltec_v3_companion/bootloader.bin", offset: 0x0 },
+                { path: "compiled_firmware/Heltec_v3_companion/partitions.bin", offset: 0x8000 },
+                { path: "compiled_firmware/Heltec_v3_companion/boot_app0.bin", offset: 0xe000 },
+                { path: "compiled_firmware/Heltec_v3_companion/firmware.bin", offset: 0x10000 }
+            ]
+        },
+        {
+            name: "Heltec V4",
+            parts: [
+                { path: "compiled_firmware/Heltec_v4_companion/bootloader.bin", offset: 0x0 },
+                { path: "compiled_firmware/Heltec_v4_companion/partitions.bin", offset: 0x8000 },
+                { path: "compiled_firmware/Heltec_v4_companion/boot_app0.bin", offset: 0xe000 },
+                { path: "compiled_firmware/Heltec_v4_companion/firmware.bin", offset: 0x10000 }
+            ]
+        },
+        {
+            name: "Heltec V4 TFT",
+            parts: [
+                { path: "compiled_firmware/Heltec_v4_tft_companion_radio/bootloader.bin", offset: 0x0 },
+                { path: "compiled_firmware/Heltec_v4_tft_companion_radio/partitions.bin", offset: 0x8000 },
+                { path: "compiled_firmware/Heltec_v4_tft_companion_radio/boot_app0.bin", offset: 0xe000 },
+                { path: "compiled_firmware/Heltec_v4_tft_companion_radio/firmware.bin", offset: 0x10000 }
+            ]
+        },
+        {
+            name: "LilyGO T3S3",
+            parts: [
+                { path: "compiled_firmware/LilyGo_T3S3_sx1262_companion/bootloader.bin", offset: 0x0 },
+                { path: "compiled_firmware/LilyGo_T3S3_sx1262_companion/partitions.bin", offset: 0x8000 },
+                { path: "compiled_firmware/LilyGo_T3S3_sx1262_companion/boot_app0.bin", offset: 0xe000 },
+                { path: "compiled_firmware/LilyGo_T3S3_sx1262_companion/firmware.bin", offset: 0x10000 }
+            ]
+        },
+        {
+            name: "Xiao S3 Wio",
+            parts: [
+                { path: "compiled_firmware/Xiao_S3_WIO_companion/bootloader.bin", offset: 0x0 },
+                { path: "compiled_firmware/Xiao_S3_WIO_companion/partitions.bin", offset: 0x8000 },
+                { path: "compiled_firmware/Xiao_S3_WIO_companion/boot_app0.bin", offset: 0xe000 },
+                { path: "compiled_firmware/Xiao_S3_WIO_companion/firmware.bin", offset: 0x10000 }
+            ]
+        }
+    ];
 
+    const boardSelect = document.getElementById('boardSelect');
     const connectBtn = document.getElementById('connectBtn');
     const disconnectBtn = document.getElementById('disconnectBtn');
     const flashBtn = document.getElementById('flashBtn');
     const logArea = document.getElementById('log');
+
+    let port;
+    let transport;
+    let esploader;
+
+    // Vul de dropdown
+    firmwareConfigs.forEach((config, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = config.name;
+        boardSelect.appendChild(option);
+    });
 
     function log(text) {
         logArea.value += text + '\n';
@@ -95,18 +279,18 @@
             
             esploader = new ESPLoader({
                 transport: transport,
-                baudrate: 921600, // Maximale snelheid voor snelle overdracht
+                baudrate: 921600,
                 terminal: terminal
             });
 
             const chip = await esploader.main();
-            log(`\nVerbonden met chip: ${chip}`);
+            log(`[VERBONDEN] Chip gedetecteerd: ${chip}`);
             
             connectBtn.disabled = true;
             disconnectBtn.disabled = false;
             flashBtn.disabled = false;
         } catch (e) {
-            log(`Fout bij verbinden: ${e.message}`);
+            log(`[FOUT] Kan niet verbinden: ${e.message}`);
         }
     });
 
@@ -117,7 +301,7 @@
         connectBtn.disabled = false;
         disconnectBtn.disabled = true;
         flashBtn.disabled = true;
-        log('\nApparaat ontkoppeld.');
+        log('[ONTKOPPELD]');
     });
 
     flashBtn.addEventListener('click', async () => {
@@ -128,55 +312,44 @@
         log('Start flash proces...');
 
         try {
-            const fileEntries = [
-                { fileInput: 'bootloaderFile', offsetInput: 'bootloaderOffset' },
-                { fileInput: 'partitionsFile', offsetInput: 'partitionsOffset' },
-                { fileInput: 'bootApp0File', offsetInput: 'bootApp0Offset' },
-                { fileInput: 'firmwareFile', offsetInput: 'firmwareOffset' }
-            ];
-
+            const selectedConfig = firmwareConfigs[boardSelect.value];
             const fileArray = [];
 
-            for (const entry of fileEntries) {
-                const fileInput = document.getElementById(entry.fileInput);
-                const offsetInput = document.getElementById(entry.offsetInput);
-
-                if (fileInput.files.length > 0) {
-                    const file = fileInput.files[0];
-                    const buffer = await file.arrayBuffer();
-                    const data = new Uint8Array(buffer);
-                    const offset = parseInt(offsetInput.value, 16);
-
-                    fileArray.push({ data: data, address: offset });
-                    log(`Ingelezen: ${file.name} op adres 0x${offset.toString(16)}`);
+            // Haal automatisch alle bestanden op via fetch obv de gekozen hardware
+            for (const part of selectedConfig.parts) {
+                log(`Downloaden: ${part.path}...`);
+                const response = await fetch(part.path);
+                if (!response.ok) {
+                    throw new Error(`Kan bestand niet vinden op pad: ${part.path}`);
                 }
+                const buffer = await response.arrayBuffer();
+                fileArray.push({
+                    data: new Uint8Array(buffer),
+                    address: part.offset
+                });
             }
 
-            if (fileArray.length === 0) {
-                alert('Selecteer ten minste één bestand om te flashen!');
-                flashBtn.disabled = false;
-                return;
-            }
+            log('Bezig met wegschrijven naar flash (settings behouden)...');
 
             const flashOptions = {
                 fileArray: fileArray,
                 flashSize: "keep",
-                eraseAll: false, // DIT IS DE BELANGRIJKSTE: voorkomt dat de flash leeggetrokken wordt
+                eraseAll: false, // Dit zorgt ervoor dat je settings NIET gewist worden!
                 compress: true,
                 reportProgress: (fileIndex, written, total) => {
                     const percent = Math.floor((written / total) * 100);
-                    log(`Voortgang bestand ${fileIndex + 1}: ${percent}% (${written}/${total} bytes)`);
+                    log(`Voortgang bestand ${fileIndex + 1}: ${percent}%`);
                 }
             };
 
             await esploader.writeFlash(flashOptions);
-            log('\n--- FLASHEN SUCCESVOL VOLTOOID! ---');
+            log('\n[SUCCES] Firmware succesvol geflasht zonder data te wissen!');
             
             await esploader.after("hard_reset");
-            log('Apparaat is herstart.');
+            log('[HERSTART] Apparaat herstart.');
 
         } catch (e) {
-            log(`\nFout tijdens flashen: ${e.message}`);
+            log(`\n[FOUT] Tijdens flashen: ${e.message}`);
         } finally {
             flashBtn.disabled = false;
         }
