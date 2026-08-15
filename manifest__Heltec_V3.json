@@ -1,0 +1,15 @@
+{
+  "name": "MeshCore Infinity Edition - Heltec V3",
+  "version": "1.17.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32S3",
+      "parts": [
+        { "path": "compiled firmware/Heltec_v3_companion/bootloader.bin", "offset": 0 },
+        { "path": "compiled firmware/Heltec_v3_companion/partitions.bin", "offset": 32768 },
+        { "path": "compiled firmware/Heltec_v3_companion/boot_app0.bin", "offset": 57344 },
+        { "path": "compiled firmware/Heltec_v3_companion/firmware.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
