@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeshCore Infinity Edition Flasher</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #111827;
+            color: #f3f4f6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1f2937;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+        h1 {
+            margin-top: 0;
+            color: #60a5fa;
+        }
+        p {
+            color: #9ca3af;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #4b5563;
+            background-color: #374151;
+            color: white;
+            font-size: 16px;
+        }
+        esp-web-install-button {
+            margin: 20px 0;
+            display: block;
+        }
+        .note {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MeshCore Infinity Edition Flasher</h1>
+        <p>Selecteer je hardwareversie en flash de MeshCore firmware rechtstreeks via je browser.</p>
+        
+        <!-- Dropdown menu -->
+        <select id="board-selector">
+            <option value="manifest_Heltec_V2.json">Heltec LoRa 32 V2</option>
+            <option value="manifest_Heltec_v3.json">Heltec LoRa 32 V3</option>
+            <option value="manifest_Heltec_v4.json">Heltec LoRa 32 V4</option>
+            <option value="manifest_Heltec_v4TFT.json">Heltec LoRa 32 V4 TFT</option>
+            <option value="manifest_LilyGO_T3S3.json">LilyGO T3S3</option>
+            <option value="manifest_Xiao_S3_Wio.json">Seeed Studio XIAO ESP32S3</option>
+        </select>
+
+        <!-- Flash knop (Start standaard met de V2) -->
+        <esp-web-install-button id="install-button" manifest="manifest_Heltec_v2.json">
+            <button slot="activate">Install Firmware</button>
+            <span slot="unsupported">Je browser ondersteunt geen Web Serial. Gebruik Chrome of Edge.</span>
+        </esp-web-install-button>
+
+        <div class="note">Zorg ervoor dat je apparaat via USB is aangesloten en de juiste USB-drivers zijn geïnstalleerd.</div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    
+    <!-- Script om het manifest te updaten als je een ander bordje kiest -->
+    <script>
+        const selector = document.getElementById('board-selector');
+        const installButton = document.getElementById('install-button');
+
+        selector.addEventListener('change', (event) => {
+            installButton.setAttribute('manifest', event.target.value);
+        });
+    </script>
+</body>
+</html>
